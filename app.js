@@ -7,6 +7,7 @@ const app = express();
 
 const usersRouter = require("./Routes/users.route.js");
 const welcomeRouter = require("./Routes/welcome.route.js");
+const developmentRouter = require("./Routes/development.route.js");
 /* Set Middle wares  */
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/users", usersRouter);
 app.use("/", welcomeRouter);
+app.use("/", developmentRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

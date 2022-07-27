@@ -6,7 +6,6 @@ require("dotenv").config();
 const app = express();
 
 const usersRouter = require("./Routes/users.route.js");
-const welcomeRouter = require("./Routes/welcome.route.js");
 const kironRouter = require("./Routes/kiron.route.js");
 /* Set Middle wares  */
 app.use(cors());
@@ -15,8 +14,7 @@ app.use(express.json());
 /* ALL ENDPOINTS PUTTING HERE  */
 
 app.use("/users", usersRouter);
-app.use("/", welcomeRouter);
-app.use("/", kironRouter);
+app.use("/team", kironRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

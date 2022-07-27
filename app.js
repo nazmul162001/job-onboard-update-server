@@ -14,7 +14,7 @@ app.use(express.json());
 /* ALL ENDPOINTS PUTTING HERE  */
 
 app.use("/users", usersRouter);
-app.use("/", kironRouter);
+app.use("/team", kironRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

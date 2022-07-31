@@ -5,15 +5,18 @@ require("dotenv").config();
 
 const app = express();
 
+//Routes
 const usersRouter = require("./Routes/users.route.js");
 const kironRouter = require("./Routes/kiron.route.js");
+const jobsRouter = require("./Routes/jobs");
+
 /* Set Middle wares  */
 app.use(cors());
 app.use(express.json());
 
-/* ALL ENDPOINTS PUTTING HERE  */
-
+/* Use Routes  */
 app.use("/users", usersRouter);
+app.use("/jobs", jobsRouter);
 app.use("/team", kironRouter);
 
 /* testing api  */
@@ -25,6 +28,7 @@ app.get("/", (req, res) => {
 app.use((req, res, next) => {
   res.status(404).send({ success: false, message: "Not Found Route" });
 });
+
 /* Server Error Routes */
 app.use((err, req, res, next) => {
   res

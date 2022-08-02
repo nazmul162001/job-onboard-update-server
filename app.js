@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const path = require("path");
 
 const app = express();
 
@@ -15,11 +16,11 @@ app.use(express.json());
 
 /* Use Routes  */
 app.use("/users", usersRouter);
-app.use("/", jobsRouter);
+app.use("/jobs", jobsRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {
-  res.send({ success: true, message: "Welcome to the API" });
+  res.sendFile(path.join(__dirname, "./Views/index.html"));
 });
 
 /* not found routes */

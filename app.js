@@ -2,13 +2,13 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const path = require("path");
 
 const app = express();
 
 //Routes
 const usersRouter = require("./Routes/users.route.js");
-const kironRouter = require("./Routes/kiron.route.js");
-const jobsRouter = require("./Routes/jobs.route");
+const jobsRouter = require("./Routes/jobs.route.js");
 
 /* Set Middle wares  */
 app.use(cors());
@@ -17,11 +17,10 @@ app.use(express.json());
 /* Use Routes  */
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
-app.use("/team", kironRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {
-  res.send({ success: true, message: "Welcome to the API" });
+  res.sendFile(path.join(__dirname, "./Views/index.html"));
 });
 
 /* not found routes */

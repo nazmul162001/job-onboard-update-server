@@ -8,7 +8,7 @@ const app = express();
 //Routes
 const usersRouter = require("./Routes/users.route.js");
 const kironRouter = require("./Routes/kiron.route.js");
-const jobsRouter = require("./Routes/jobs");
+const jobsRouter = require("./Routes/jobs.route");
 
 /* Set Middle wares  */
 app.use(cors());

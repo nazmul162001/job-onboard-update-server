@@ -7,8 +7,7 @@ const app = express();
 
 //Routes
 const usersRouter = require("./Routes/users.route.js");
-const kironRouter = require("./Routes/kiron.route.js");
-const jobsRouter = require("./Routes/jobs.route");
+const jobsRouter = require("./Routes/jobs.route.js");
 
 /* Set Middle wares  */
 app.use(cors());
@@ -16,8 +15,7 @@ app.use(express.json());
 
 /* Use Routes  */
 app.use("/users", usersRouter);
-app.use("/jobs", jobsRouter);
-app.use("/team", kironRouter);
+app.use("/", jobsRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

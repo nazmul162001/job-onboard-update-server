@@ -16,7 +16,15 @@ const singleJob = async (req, res) => {
   res.json(job);
 };
 
+const addNewJob = async (req, res) => {
+  const data = req.body;
+  const result = await jobsCollection.insertOne(data);
+  res.send(result);
+}
+
 module.exports = {
   allJob,
   singleJob,
+  addNewJob,
+  
 };

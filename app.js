@@ -8,7 +8,8 @@ const app = express();
 
 //Routes
 const usersRouter = require("./Routes/users.route.js");
-const jobsRouter = require("./Routes/jobs.route.js");
+const jobsRouter = require("./Routes/jobs.route");
+const applicantsRouter = require('./Routes/applicants.route')
 
 /* Set Middle wares  */
 app.use(cors());
@@ -17,6 +18,7 @@ app.use(express.json());
 /* Use Routes  */
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
+app.use("/applicants" , applicantsRouter)
 
 /* testing api  */
 app.get("/", (req, res) => {

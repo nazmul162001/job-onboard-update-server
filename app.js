@@ -9,7 +9,8 @@ const app = express();
 //Routes
 const loginRouter = require("./Routes/login.route.js");
 const usersRouter = require("./Routes/users.route.js");
-const jobsRouter = require("./Routes/jobs.route.js");
+const jobsRouter = require("./Routes/jobs.route");
+const applicantsRouter = require('./Routes/applicants.route')
 
 /* Set Middle wares  */
 app.use(cors());
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/login", loginRouter);
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
+app.use("/applicants" , applicantsRouter)
 
 /* testing api  */
 app.get("/", (req, res) => {

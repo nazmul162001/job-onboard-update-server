@@ -15,9 +15,9 @@ const getEmployee = async (req, res) => {
 // Edit all employe details
 const editEployee = async (req, res) => {
   const id = req.params.id;
-  console.log(id + "dd");
+
   const employeDetails = req.body;
-  console.log(employeDetails);
+
   const filter = { _id: ObjectId(id) };
   const option = { upsert: true };
   const updateDoc = {
@@ -30,9 +30,16 @@ const editEployee = async (req, res) => {
   );
   res.send(results);
 };
-
+// delete employe data
+const deleteEmployeData = async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: ObjectId(id) };
+  const deleteData = await employeesDataCollection.deleteOne(query);
+  res.send(deleteData);
+};
 module.exports = {
   addEmployee,
   getEmployee,
   editEployee,
+  deleteEmployeData,
 };

@@ -14,6 +14,7 @@ const applicantsRouter = require("./Routes/applicants.route");
 const addEmployeeRouter = require("./Routes/EmployeRoute/employees.route");
 const getEmployeeRouter = require("./Routes/EmployeRoute/employees.route");
 const editEmployeRouter = require("./Routes/EmployeRoute/employees.route");
+const deleteEmployeRouter = require("./Routes/EmployeRoute/employees.route");
 /* Set Middle wares  */
 app.use(cors());
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use("/applicants", applicantsRouter);
 app.use("/addEmployees", addEmployeeRouter);
 app.use("/getEmployees", getEmployeeRouter);
 app.use("/editEployee", editEmployeRouter);
+app.use("/deleteEmployeDetails", deleteEmployeRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

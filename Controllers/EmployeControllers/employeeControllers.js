@@ -1,6 +1,6 @@
 const client = require("../../Connection/connection");
 const employeesDataCollection = client.db("jobOnboard").collection("employees");
-
+const { ObjectId } = require("mongodb");
 // Add new employe for company
 const addEmployee = async (req, res) => {
   const employeData = req.body;
@@ -15,8 +15,9 @@ const getEmployee = async (req, res) => {
 // Edit all employe details
 const editEployee = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  console.log(id + "dd");
   const employeDetails = req.body;
+  console.log(employeDetails);
   const filter = { _id: ObjectId(id) };
   const option = { upsert: true };
   const updateDoc = {

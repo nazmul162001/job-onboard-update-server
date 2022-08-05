@@ -15,9 +15,7 @@ const getEmployee = async (req, res) => {
 // Edit all employe details
 const editEployee = async (req, res) => {
   const id = req.params.id;
-
   const employeDetails = req.body;
-
   const filter = { _id: ObjectId(id) };
   const option = { upsert: true };
   const updateDoc = {

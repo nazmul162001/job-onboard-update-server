@@ -9,10 +9,11 @@ const app = express();
 //Routes
 const usersRouter = require("./Routes/users.route.js");
 const jobsRouter = require("./Routes/jobs.route");
-const applicantsRouter = require('./Routes/applicants.route')
+const applicantsRouter = require("./Routes/applicants.route");
 // Employe route
-const addEmployeeRouter = require("./Routes/EmployeRoute/employees.route")
-const getEmployeeRouter = require("./Routes/EmployeRoute/employees.route")
+const addEmployeeRouter = require("./Routes/EmployeRoute/employees.route");
+const getEmployeeRouter = require("./Routes/EmployeRoute/employees.route");
+const editEmployeRouter = require("./Routes/EmployeRoute/employees.route");
 /* Set Middle wares  */
 app.use(cors());
 app.use(express.json());
@@ -20,10 +21,11 @@ app.use(express.json());
 /* Use Routes  */
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
-app.use("/applicants" , applicantsRouter)
+app.use("/applicants", applicantsRouter);
 // employe route
-app.use("/addEmployees" , addEmployeeRouter)
-app.use("/getEmployees" , getEmployeeRouter)
+app.use("/addEmployees", addEmployeeRouter);
+app.use("/getEmployees", getEmployeeRouter);
+app.use("/editEployee", editEmployeRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

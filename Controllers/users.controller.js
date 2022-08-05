@@ -6,7 +6,6 @@ const getProfileDetails = async (req, res) => {
   await client.connect();
   const decodedID = req.decoded.uid;
   const uid = req.query.uid;
-
   if (decodedID === uid) {
     const result = await usersCollection.findOne({ uid: uid });
     res.send({ success: true, result });
@@ -23,6 +22,32 @@ const getAllUsers = async (req, res) => {
   } else {
     res.status(403).send({ success: false, message: "Forbidden request" });
   }
+};
+
+const putUserRole = async (req, res) => {
+  await client.connect();
+  const email = req.body.email;
+  const filter = { email: email };
+  const updateDoc = {
+    $set: { role: "admin" },
+  };
+  const result = await usersCollection.updateOne(filter, updateDoc);
+  if (result.acknowledged) {
+    res.send({ success: true, message: "Made admin successfully done." });
+  } else {
+    res.status(403).send({ success: false, message: "Forbidden request" });
+  }
+};
+
+const removeUserRole = async (req, res) => {
+  await client.connect();
+  const email = req.body.email;
+  const filter = { email: email };
+  const updateDoc = {
+    $set: { role: "user" },
+  };
+  const result = await usersCollection.updateOne(filter, updateDoc);
+  res.send(result);
 };
 
 const updateProfile = async (req, res) => {
@@ -44,6 +69,21 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const uid = req.query.uid;
+  const dltId = req.query.deleteId;
+  const decodedID = req.decoded.uid;
+  if (decodedID === uid) {
+    const query = { _id: ObjectId(dltId) };
+    const result = await usersCollection.deleteOne(query);
+    if (result.acknowledged) {
+      res.send({ success: true, message: "User deleted successfully" });
+    }
+  } else {
+    res.status(403).send({ success: false, message: "Forbidden request" });
+  }
+};
+
 const makeHr = async (req, res) => {
   await client.connect();
   const email = req.body.email;
@@ -59,25 +99,12 @@ const makeHr = async (req, res) => {
   }
 };
 
-const makeNormalUser = async (req, res) => {
-  await client.connect();
-  const email = req.body.email;
-  const filter = { email: email };
-  const updateDoc = {
-    $set: { role: "user" },
-  };
-  const result = await usersCollection.updateOne(filter, updateDoc);
-  if (result) {
-    res.send({ success: true, message: "You're signed in as a HR Manager" });
-  } else {
-    res.status(403).send({ success: false, message: "Forbidden request" });
-  }
-};
-
 module.exports = {
   updateProfile,
   getProfileDetails,
   getAllUsers,
   makeHr,
-  makeNormalUser,
+  putUserRole,
+  deleteUser,
+  removeUserRole,
 };

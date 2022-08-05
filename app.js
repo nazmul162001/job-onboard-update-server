@@ -8,28 +8,22 @@ const app = express();
 
 //Routes
 const loginRouter = require("./Routes/login.route.js");
+const adminRouter = require("./Routes/admin.route.js");
 const usersRouter = require("./Routes/users.route.js");
-const jobsRouter = require("./Routes/jobs.route");
-const applicantsRouter = require("./Routes/applicants.route");
-// Employe route
-const addEmployeeRouter = require("./Routes/EmployeRoute/employees.route");
-const getEmployeeRouter = require("./Routes/EmployeRoute/employees.route");
-const editEmployeRouter = require("./Routes/EmployeRoute/employees.route");
-const deleteEmployeRouter = require("./Routes/EmployeRoute/employees.route");
+const jobsRouter = require("./Routes/jobs.route.js");
+const applicantsRouter = require("./Routes/applicants.route.js");
+const employeeRouter = require("./Routes/employees.route.js");
 /* Set Middle wares  */
 app.use(cors());
 app.use(express.json());
 
 /* Use Routes  */
 app.use("/login", loginRouter);
+app.use("/admin", adminRouter)
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
 app.use("/applicants", applicantsRouter);
-// employe route
-app.use("/addEmployees", addEmployeeRouter);
-app.use("/getEmployees", getEmployeeRouter);
-app.use("/editEployee", editEmployeRouter);
-app.use("/deleteEmployeDetails", deleteEmployeRouter);
+app.use("/", employeeRouter);
 
 
 /* testing api  */

@@ -1,4 +1,4 @@
-const client = require("../../Connection/connection");
+const client = require("../Connection/connection");
 const employeesDataCollection = client.db("jobOnboard").collection("employees");
 const { ObjectId } = require("mongodb");
 // Add new employe for company

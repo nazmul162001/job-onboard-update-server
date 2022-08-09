@@ -19,12 +19,11 @@ app.use(express.json());
 
 /* Use Routes  */
 app.use("/login", loginRouter);
-app.use("/admin", adminRouter)
+app.use("/admin", adminRouter);
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
 app.use("/applicants", applicantsRouter);
 app.use("/", employeeRouter);
-
 
 /* testing api  */
 app.get("/", (req, res) => {

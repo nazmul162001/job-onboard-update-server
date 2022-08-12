@@ -1,9 +1,11 @@
 const router = require("express").Router();
-
-const { allJob, singleJob , addNewJob} = require("../Controllers/jobs.controller");
+const VerifyToken = require("../VerifyToken/VerifyToken");
+const { allJob, getOnlyJobs, singleJob , addNewJob,jobCount} = require("../Controllers/jobs.controller");
 
 
 router.get("/", allJob);
+router.get("/jobCount", jobCount);
+router.get("/hrJobs", VerifyToken, getOnlyJobs);
 router.get("/:jobId", singleJob);
 router.post("/", addNewJob);
 

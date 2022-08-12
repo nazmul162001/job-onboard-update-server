@@ -10,6 +10,18 @@ const allJob = async (req, res) => {
   res.send(jobs);
 };
 
+const getOnlyJobs = async (req, res) => {
+  const email = req.query.email;
+  const decodedEmail = req.decoded.email;
+  const query = { hrEmail: email };
+  if (decodedEmail === email) {
+    const hrJobs = await jobsCollection.find(query).toArray();
+    return res.send(hrJobs);
+  } else {
+    return res.status(403).send({ message: "forbidden access" });
+  }
+};
+
 const singleJob = async (req, res) => {
   const { jobId } = req.params;
   const job = await jobsCollection.findOne({ _id: ObjectId(jobId) });
@@ -26,5 +38,5 @@ module.exports = {
   allJob,
   singleJob,
   addNewJob,
-  
+  getOnlyJobs
 };

@@ -9,6 +9,7 @@ const app = express();
 //Routes
 const loginRouter = require("./Routes/login.route.js");
 const adminRouter = require("./Routes/admin.route.js");
+const hrRouter = require("./Routes/hr.route.js");
 const usersRouter = require("./Routes/users.route.js");
 const jobsRouter = require("./Routes/jobs.route.js");
 const applicantsRouter = require("./Routes/applicants.route.js");
@@ -19,7 +20,8 @@ app.use(express.json());
 
 /* Use Routes  */
 app.use("/login", loginRouter);
-app.use("/admin", adminRouter);
+app.use("/admin", adminRouter)
+app.use("/hr", hrRouter)
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
 app.use("/applicants", applicantsRouter);

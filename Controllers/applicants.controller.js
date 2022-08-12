@@ -14,6 +14,7 @@ const getApplicants = async (req, res) => {
 
 const getApplicantsCount = async (req, res) => {
   const email = req.query.email;
+  // const title = req.query.title;
   const decodedEmail = req.decoded.email;
   const query = { hrEmail: email };
   if (decodedEmail === email) {

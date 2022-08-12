@@ -30,14 +30,22 @@ const editEployee = async (req, res) => {
 };
 // delete employe data
 const deleteEmployeData = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.employeId;
   const query = { _id: ObjectId(id) };
   const deleteData = await employeesDataCollection.deleteOne(query);
   res.send(deleteData);
 };
+const singleDetails = async (req, res) => {
+  const id = req.params.detailsId;
+  const query = { _id: ObjectId(id) };
+  const result = await employeesDataCollection.findOne(query);
+  res.send(result);
+};
+
 module.exports = {
   addEmployee,
   getEmployee,
   editEployee,
   deleteEmployeData,
+  singleDetails,
 };

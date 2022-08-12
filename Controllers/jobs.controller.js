@@ -5,9 +5,22 @@ const { ObjectId } = require("mongodb");
 const jobsCollection = client.db("jobOnboard").collection("jobs");
 
 const allJob = async (req, res) => {
-  const jobs = await jobsCollection.find({}).toArray();
   // res.send("This is job api route testing by emtiaz" );
-  res.send(jobs);
+  const page = parseInt(req.query.page)
+  const pageJobs = parseInt(req.query.pageJobs)
+  const cursor = jobsCollection.find({})
+  let jobs;
+  if (page || pageJobs) {
+    jobs = await cursor.skip(page * pageJobs).limit(pageJobs).toArray()
+  }
+  else {
+    jobs = await cursor.toArray()
+  }
+  res.send(jobs)
+
+
+  // const jobs = await jobsCollection.find({}).toArray();
+  // res.send(jobs);
 };
 
 const getOnlyJobs = async (req, res) => {
@@ -34,9 +47,15 @@ const addNewJob = async (req, res) => {
   res.send(result);
 }
 
+const jobCount = async (req, res) => {
+  const count = await jobsCollection.estimatedDocumentCount()
+  res.send({ count })
+}
+
 module.exports = {
   allJob,
   singleJob,
   addNewJob,
-  getOnlyJobs
+  getOnlyJobs,
+  jobCount
 };

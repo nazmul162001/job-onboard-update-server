@@ -4,12 +4,55 @@ const { ObjectId } = require("mongodb");
 //collections
 const jobsCollection = client.db("jobOnboard").collection("jobs");
 
+
+//Get All Job
 const allJob = async (req, res) => {
-  const jobs = await jobsCollection.find({}).toArray();
-  // res.send("This is job api route testing by emtiaz" );
-  res.send(jobs);
+
+  const { search, location, cat, salary, type } = req.query;
+  const page = req.query?.page || 1;
+  const show = req.query?.show || 10;
+  
+  // http://localhost:5000/jobs?search=react&page=1&show=10&location=Remote&cat=%27%27&salary=%27%27
+
+  const searchExpQuery = new RegExp(search, 'i');
+  const locationRegExp = new RegExp(location, 'i');
+  const categoryRegExp = new RegExp(cat, 'i');
+  const typeRegExp = new RegExp(type, 'i');
+  const jobType = type?.split(',')
+
+
+  let jobTypeObj = {}
+
+  // For Check Length Job Type
+  if (jobType?.length > 1) {
+    jobTypeObj = { jobType: { $in: [...jobType] } }
+  }
+
+  else {
+    jobTypeObj = { jobType: { $regex: typeRegExp } }
+  }
+
+
+  //Filter regex mongodb
+  let filter =
+  {
+    "$and":
+      [
+        { jobTitle: { $regex: searchExpQuery } },
+        { location: { $regex: locationRegExp } },
+        jobTypeObj,
+        { category: { $regex: categoryRegExp } },
+      ]
+  }
+
+  const jobs = await jobsCollection.find(filter).skip(eval((page - 1) * show)).limit(eval(show)).toArray();
+
+  const count = await jobsCollection.find(filter).count()
+  return res.send({ jobs: jobs, total: count });
+
 };
 
+// Get Jobs 
 const getOnlyJobs = async (req, res) => {
   const email = req.query.email;
   const decodedEmail = req.decoded.email;
@@ -22,17 +65,22 @@ const getOnlyJobs = async (req, res) => {
   }
 };
 
+
+//Single job
 const singleJob = async (req, res) => {
   const { jobId } = req.params;
   const job = await jobsCollection.findOne({ _id: ObjectId(jobId) });
   res.json(job);
 };
 
+//Add New Job
 const addNewJob = async (req, res) => {
   const data = req.body;
   const result = await jobsCollection.insertOne(data);
   res.send(result);
 }
+
+
 
 module.exports = {
   allJob,

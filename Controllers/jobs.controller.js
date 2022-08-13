@@ -5,12 +5,11 @@ const { ObjectId } = require("mongodb");
 const jobsCollection = client.db("jobOnboard").collection("jobs");
 
 const allJob = async (req, res) => {
-  // res.send("This is job api route testing by emtiaz" );
 
   const { search, location, cat, salary, type } = req.query;
   const page = req.query?.page || 1;
   const show = req.query?.show || 10;
-  // if (search) {
+  
   // http://localhost:5000/jobs?search=react&page=1&show=10&location=Remote&cat=%27%27&salary=%27%27
 
   const searchExpQuery = new RegExp(search, 'i');
@@ -22,7 +21,7 @@ const allJob = async (req, res) => {
 
   let jobTypeObj = {}
 
-  // FOR CHECK LENGTH JOB TYPE 
+  // For Check Length Job Type
   if (jobType?.length > 1) {
     jobTypeObj = { jobType: { $in: [...jobType] } }
   }
@@ -30,6 +29,7 @@ const allJob = async (req, res) => {
   else {
     jobTypeObj = { jobType: { $regex: typeRegExp } }
   }
+
 
   let filter =
   {
@@ -42,22 +42,11 @@ const allJob = async (req, res) => {
       ]
   }
 
+  const jobs = await jobsCollection.find(filter).skip(eval((page - 1) * show)).limit(eval(show)).toArray();
 
+  const count = await jobsCollection.find(filter).count()
+  return res.send({ jobs: jobs, total: count });
 
-
-  const cursor = jobsCollection.find({})
-  let jobs;
-  if (page || pageJobs) {
-    jobs = await cursor.skip(page * pageJobs).limit(pageJobs).toArray()
-  }
-  else {
-    jobs = await cursor.toArray()
-  }
-  res.send(jobs)
-
-
-  // const jobs = await jobsCollection.find({}).toArray();
-  // res.send(jobs);
 };
 
 const getOnlyJobs = async (req, res) => {
@@ -84,11 +73,9 @@ const addNewJob = async (req, res) => {
   res.send(result);
 }
 
-
-
 module.exports = {
   allJob,
   singleJob,
   addNewJob,
-  getOnlyJobs,
+  getOnlyJobs
 };

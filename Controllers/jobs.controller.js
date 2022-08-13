@@ -47,7 +47,7 @@ const allJob = async (req, res) => {
 
   const jobs = await jobsCollection.find(filter).skip(eval((page - 1) * show)).limit(eval(show)).toArray();
 
-  const count = await jobsCollection.find(filter).count()
+  const count = await jobsCollection.countDocuments()
   return res.send({ jobs: jobs, total: count });
 
 };

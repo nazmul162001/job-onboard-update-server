@@ -6,8 +6,20 @@ const jobsCollection = client.db("jobOnboard").collection("jobs");
 
 const allJob = async (req, res) => {
   // res.send("This is job api route testing by emtiaz" );
-  const page = parseInt(req.query.page)
-  const pageJobs = parseInt(req.query.pageJobs)
+
+  const { search, location, cat, salary, type } = req.query;
+  const page = req.query?.page || 1;
+  const show = req.query?.show || 10;
+  // if (search) {
+  // http://localhost:5000/jobs?search=react&page=1&show=10&location=Remote&cat=%27%27&salary=%27%27
+
+  const searchExpQuery = new RegExp(search, 'i');
+  const locationRegExp = new RegExp(location, 'i');
+  const categoryRegExp = new RegExp(cat, 'i');
+  const typeRegExp = new RegExp(type, 'i');
+  const jobType = type?.split(',')
+
+
   const cursor = jobsCollection.find({})
   let jobs;
   if (page || pageJobs) {
@@ -47,15 +59,11 @@ const addNewJob = async (req, res) => {
   res.send(result);
 }
 
-const jobCount = async (req, res) => {
-  const count = await jobsCollection.estimatedDocumentCount()
-  res.send({ count })
-}
+
 
 module.exports = {
   allJob,
   singleJob,
   addNewJob,
   getOnlyJobs,
-  jobCount
 };

@@ -4,6 +4,8 @@ const { ObjectId } = require("mongodb");
 //collections
 const jobsCollection = client.db("jobOnboard").collection("jobs");
 
+
+//Get All Job
 const allJob = async (req, res) => {
 
   const { search, location, cat, salary, type } = req.query;
@@ -31,6 +33,7 @@ const allJob = async (req, res) => {
   }
 
 
+  //Filter regex mongodb
   let filter =
   {
     "$and":
@@ -49,6 +52,7 @@ const allJob = async (req, res) => {
 
 };
 
+// Get Jobs 
 const getOnlyJobs = async (req, res) => {
   const email = req.query.email;
   const decodedEmail = req.decoded.email;
@@ -61,17 +65,22 @@ const getOnlyJobs = async (req, res) => {
   }
 };
 
+
+//Single job
 const singleJob = async (req, res) => {
   const { jobId } = req.params;
   const job = await jobsCollection.findOne({ _id: ObjectId(jobId) });
   res.json(job);
 };
 
+//Add New Job
 const addNewJob = async (req, res) => {
   const data = req.body;
   const result = await jobsCollection.insertOne(data);
   res.send(result);
 }
+
+
 
 module.exports = {
   allJob,

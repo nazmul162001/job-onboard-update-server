@@ -20,6 +20,18 @@ const allJob = async (req, res) => {
   const jobType = type?.split(',')
 
 
+  let jobTypeObj = {}
+
+  // FOR CHECK LENGTH JOB TYPE 
+  if (jobType?.length > 1) {
+    jobTypeObj = { jobType: { $in: [...jobType] } }
+  }
+
+  else {
+    jobTypeObj = { jobType: { $regex: typeRegExp } }
+  }
+
+
   const cursor = jobsCollection.find({})
   let jobs;
   if (page || pageJobs) {

@@ -31,6 +31,19 @@ const allJob = async (req, res) => {
     jobTypeObj = { jobType: { $regex: typeRegExp } }
   }
 
+  let filter =
+  {
+    "$and":
+      [
+        { jobTitle: { $regex: searchExpQuery } },
+        { location: { $regex: locationRegExp } },
+        jobTypeObj,
+        { category: { $regex: categoryRegExp } },
+      ]
+  }
+
+
+
 
   const cursor = jobsCollection.find({})
   let jobs;

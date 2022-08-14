@@ -12,6 +12,17 @@ const getApplicants = async (req, res) => {
   res.send(applicants);
 };
 
+const getOnlyApplicant = async (req, res) => {
+  const email = req.query.email;
+  const decodedEmail = req.decoded.email;
+  const query = { email: email };
+  if (decodedEmail === email) {
+    const applicantsCount = await applicantsCollection.find(query).toArray();
+    return res.send(applicantsCount);
+  } else {
+    return res.status(403).send({ message: "forbidden access" });
+  }
+};
 const getApplicantsCount = async (req, res) => {
   const email = req.query.email;
   // const title = req.query.title;
@@ -29,4 +40,5 @@ module.exports = {
   newApplicant,
   getApplicants,
   getApplicantsCount,
+  getOnlyApplicant
 };

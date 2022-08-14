@@ -5,9 +5,11 @@ const {
   newApplicant,
   getApplicants,
   getApplicantsCount,
+  getOnlyApplicant
 } = require("../Controllers/applicants.controller");
 
 router.get("/", getApplicants);
+router.get("/applied", VerifyToken, getOnlyApplicant);
 router.get("/count", VerifyToken, getApplicantsCount);
 router.post("/", newApplicant);
 

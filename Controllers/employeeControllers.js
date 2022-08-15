@@ -8,10 +8,47 @@ const addEmployee = async (req, res) => {
   const result = await employeesDataCollection.insertOne(employeData);
   res.send(result);
 };
+
 // Get all employe details
 const getEmployee = async (req, res) => {
+  const frontEnd = await employeesDataCollection
+    .find({
+      designation: 'Front-End Developer',
+    })
+    .toArray();
+  const backend = await employeesDataCollection
+    .find({
+      designation: 'Back-End Developer',
+    })
+    .toArray();
+  const others = await employeesDataCollection
+    .find({
+      designation: {
+        $nin: ['Front-End Developer', 'Back-End Developer'],
+      },
+    })
+    .toArray();
+  const male = await employeesDataCollection
+    .find({
+      gender: 'male',
+    })
+    .toArray();
+  const female = await employeesDataCollection
+    .find({
+      gender: 'female',
+    })
+    .toArray();
+  // const ageUnder20 = await employeesDataCollection.find({
+  //   age: {
+  //     $lt: 20,
+  //   }
+  // })
+  // .toArray()
+  const filtering = {
+    female, male, backend, frontEnd, others
+  }
   const getAllEmployeDetails = await employeesDataCollection.find({}).toArray();
-  res.send(getAllEmployeDetails);
+  res.send({getAllEmployeDetails, filtering});
 };
 
 // const getEmployee = async (req, res) => {

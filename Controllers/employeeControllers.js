@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-const client = require('../Connection/connection');
-const employeesDataCollection = client.db('jobOnboard').collection('employees');
-const { ObjectId } = require('mongodb');
-=======
 const client = require("../Connection/connection");
 const employeesDataCollection = client.db("jobOnboard").collection("employees");
 const { ObjectId } = require("mongodb");
 const { query } = require("express");
->>>>>>> d4850046a1f6afbecc0daceaf3db9a74189c1207
 // Add new employe for company
 const addEmployee = async (req, res) => {
   const employeData = req.body;
@@ -45,20 +39,18 @@ const getEmployee = async (req, res) => {
       gender: 'female',
     })
     .toArray();
-  const ageUnder20 = await employeesDataCollection.find({
-    age: {
-      $lt: 20,
-    }
-  })
-  .toArray()
+  // const ageUnder20 = await employeesDataCollection.find({
+  //   age: {
+  //     $lt: 20,
+  //   }
+  // })
+  // .toArray()
   const filtering = {
     female, male, backend, frontEnd, others
   }
   res.send({getAllEmployeDetails, filtering});
 };
 
-<<<<<<< HEAD
-=======
 // const getEmployee = async (req, res) => {
 //   const email = req.query.userEmail;
 //   const decodedEmail = req.decoded.email;
@@ -69,7 +61,6 @@ const getEmployee = async (req, res) => {
 //   }
 // };
 
->>>>>>> d4850046a1f6afbecc0daceaf3db9a74189c1207
 // Edit all employe details
 const editEployee = async (req, res) => {
   const id = req.params.id;

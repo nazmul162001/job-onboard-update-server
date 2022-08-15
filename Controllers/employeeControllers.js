@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 const client = require('../Connection/connection');
 const employeesDataCollection = client.db('jobOnboard').collection('employees');
 const { ObjectId } = require('mongodb');
+=======
+const client = require("../Connection/connection");
+const employeesDataCollection = client.db("jobOnboard").collection("employees");
+const { ObjectId } = require("mongodb");
+const { query } = require("express");
+>>>>>>> d4850046a1f6afbecc0daceaf3db9a74189c1207
 // Add new employe for company
 const addEmployee = async (req, res) => {
   const employeData = req.body;
@@ -50,6 +57,19 @@ const getEmployee = async (req, res) => {
   res.send({getAllEmployeDetails, filtering});
 };
 
+<<<<<<< HEAD
+=======
+// const getEmployee = async (req, res) => {
+//   const email = req.query.userEmail;
+//   const decodedEmail = req.decoded.email;
+//   if (decodedEmail === email) {
+//     const query = { email: email };
+//     const getuserEmployee = await employeesDataCollection.find(query).toArray();
+//     res.send(getuserEmployee);
+//   }
+// };
+
+>>>>>>> d4850046a1f6afbecc0daceaf3db9a74189c1207
 // Edit all employe details
 const editEployee = async (req, res) => {
   const id = req.params.id;
@@ -68,9 +88,9 @@ const editEployee = async (req, res) => {
 };
 // delete employe data
 const deleteEmployeData = async (req, res) => {
-  const id = req.params.employeId;
-  const query = { _id: ObjectId(id) };
-  const deleteData = await employeesDataCollection.deleteOne(query);
+  const deleteEmployeId = req.params.id;
+  const findId = { _id: ObjectId(deleteEmployeId) };
+  const deleteData = await employeesDataCollection.deleteOne(findId);
   res.send(deleteData);
 };
 const singleDetails = async (req, res) => {

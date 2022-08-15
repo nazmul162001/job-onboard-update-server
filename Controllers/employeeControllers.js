@@ -11,7 +11,6 @@ const addEmployee = async (req, res) => {
 
 // Get all employe details
 const getEmployee = async (req, res) => {
-  const getAllEmployeDetails = await employeesDataCollection.find({}).toArray();
   const frontEnd = await employeesDataCollection
     .find({
       designation: 'Front-End Developer',
@@ -48,6 +47,7 @@ const getEmployee = async (req, res) => {
   const filtering = {
     female, male, backend, frontEnd, others
   }
+  const getAllEmployeDetails = await employeesDataCollection.find({}).toArray();
   res.send({getAllEmployeDetails, filtering});
 };
 

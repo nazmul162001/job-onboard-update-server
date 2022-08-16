@@ -12,7 +12,8 @@ const adminRouter = require("./Routes/admin.route.js");
 const hrRouter = require("./Routes/hr.route.js");
 const usersRouter = require("./Routes/users.route.js");
 const jobsRouter = require("./Routes/jobs.route.js");
-const applicantsRouter = require("./Routes/applicants.route.js");
+const applicantsRouter = require("./Routes/blogs.route");
+const blogsRouter = require("./Routes/blogs.route.js");
 const employeeRouter = require("./Routes/employees.route.js");
 /* Set Middle wares  */
 app.use(cors());
@@ -20,12 +21,13 @@ app.use(express.json());
 
 /* Use Routes  */
 app.use("/login", loginRouter);
-app.use("/admin", adminRouter)
-app.use("/hr", hrRouter)
+app.use("/admin", adminRouter);
+app.use("/hr", hrRouter);
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
 app.use("/applicants", applicantsRouter);
 app.use("/", employeeRouter);
+app.use("/", blogsRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

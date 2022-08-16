@@ -14,6 +14,10 @@ const usersRouter = require("./Routes/users.route.js");
 const jobsRouter = require("./Routes/jobs.route.js");
 const applicantsRouter = require("./Routes/applicants.route.js");
 const employeeRouter = require("./Routes/employees.route.js");
+const guestEmail = require("./Routes/guestEmail.route")
+
+
+
 /* Set Middle wares  */
 app.use(cors());
 app.use(express.json());
@@ -25,6 +29,7 @@ app.use("/hr", hrRouter)
 app.use("/users", usersRouter);
 app.use("/jobs", jobsRouter);
 app.use("/applicants", applicantsRouter);
+app.use("/guestEmail", guestEmail);
 app.use("/", employeeRouter);
 
 /* testing api  */

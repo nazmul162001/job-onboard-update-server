@@ -12,7 +12,7 @@ const adminRouter = require("./Routes/admin.route.js");
 const hrRouter = require("./Routes/hr.route.js");
 const usersRouter = require("./Routes/users.route.js");
 const jobsRouter = require("./Routes/jobs.route.js");
-const applicantsRouter = require("./Routes/blogs.route");
+const applicantsRouter = require("./Routes/applicants.route");
 const blogsRouter = require("./Routes/blogs.route.js");
 const employeeRouter = require("./Routes/employees.route.js");
 const guestEmail = require("./Routes/guestEmail.route")
@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 
 /* not found routes */
 app.use((req, res, next) => {
-  res.status(404).send({ success: false, message: "Not Found Route" });
+  res.status(404).send({ success: false, message: "Not Route Found " });
 });
 
 /* Server Error Routes */

@@ -11,7 +11,7 @@ const allJob = async (req, res) => {
   const { search, location, cat, salary, type } = req.query;
   const page = req.query?.page || 1;
   const show = req.query?.show || 10;
-  
+
   // http://localhost:5000/jobs?search=react&page=1&show=10&location=Remote&cat=%27%27&salary=%27%27
 
   const searchExpQuery = new RegExp(search, 'i');
@@ -89,6 +89,19 @@ const deleteJob = async (req, res) => {
   res.send(result);
 }
 
+//Update  Job
+const updateJob = async (req, res) => {
+  const id = req.params.id
+  const updateInfo = req.body
+  const filter = { _id: ObjectId(id) }
+  const options = { upsert: true };
+  const updateDoc = {
+    $set: updateInfo
+  };
+  const result = await jobsCollection.updateOne(filter, updateDoc, options);
+  res.send(result)
+}
+
 
 
 module.exports = {
@@ -97,5 +110,5 @@ module.exports = {
   addNewJob,
   getOnlyJobs,
   deleteJob,
-  
+  updateJob
 };

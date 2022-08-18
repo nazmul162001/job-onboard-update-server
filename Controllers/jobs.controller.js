@@ -81,10 +81,21 @@ const addNewJob = async (req, res) => {
 }
 
 
+//Delete  Job
+const deleteJob = async (req, res) => {
+  const id = req.params.id
+  const query = { _id: ObjectId(id) }
+  const result = await jobsCollection.deleteOne(query)
+  res.send(result);
+}
+
+
 
 module.exports = {
   allJob,
   singleJob,
   addNewJob,
-  getOnlyJobs
+  getOnlyJobs,
+  deleteJob,
+  
 };

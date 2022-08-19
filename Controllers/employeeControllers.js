@@ -1,7 +1,7 @@
 const client = require("../Connection/connection");
 const employeesDataCollection = client.db("jobOnboard").collection("employees");
 const { ObjectId } = require("mongodb");
-const { query } = require("express");
+
 // Add new employe for company
 const addEmployee = async (req, res) => {
   const employeData = req.body;
@@ -13,29 +13,29 @@ const addEmployee = async (req, res) => {
 const getEmployee = async (req, res) => {
   const frontEnd = await employeesDataCollection
     .find({
-      designation: 'Front-End Developer',
+      designation: "Front-End Developer",
     })
     .toArray();
   const backend = await employeesDataCollection
     .find({
-      designation: 'Back-End Developer',
+      designation: "Back-End Developer",
     })
     .toArray();
   const others = await employeesDataCollection
     .find({
       designation: {
-        $nin: ['Front-End Developer', 'Back-End Developer'],
+        $nin: ["Front-End Developer", "Back-End Developer"],
       },
     })
     .toArray();
   const male = await employeesDataCollection
     .find({
-      gender: 'Male',
+      gender: "male",
     })
     .toArray();
   const female = await employeesDataCollection
     .find({
-      gender: 'Female',
+      gender: "female",
     })
     .toArray();
   // const ageUnder20 = await employeesDataCollection.find({
@@ -45,21 +45,27 @@ const getEmployee = async (req, res) => {
   // })
   // .toArray()
   const filtering = {
-    female, male, backend, frontEnd, others
-  }
+    female,
+    male,
+    backend,
+    frontEnd,
+    others,
+  };
   const getAllEmployeDetails = await employeesDataCollection.find({}).toArray();
-  res.send({getAllEmployeDetails, filtering});
+  res.send({ getAllEmployeDetails, filtering });
 };
 
-// const getEmployee = async (req, res) => {
-//   const email = req.query.userEmail;
-//   const decodedEmail = req.decoded.email;
-//   if (decodedEmail === email) {
-//     const query = { email: email };
-//     const getuserEmployee = await employeesDataCollection.find(query).toArray();
-//     res.send(getuserEmployee);
-//   }
-// };
+const userEmployees = async (req, res) => {
+  const email = req.query.email;
+  const decodedEmail = req.decoded.email;
+  const query = { hrUserEmail: email };
+  if (decodedEmail === email) {
+    const hrAllEmployees = await employeesDataCollection.find(query).toArray();
+    return res.send(hrAllEmployees);
+  } else {
+    return res.status(403).send({ message: "forbidden access" });
+  }
+};
 
 // Edit all employe details
 const editEployee = async (req, res) => {
@@ -97,4 +103,5 @@ module.exports = {
   editEployee,
   deleteEmployeData,
   singleDetails,
+  userEmployees,
 };

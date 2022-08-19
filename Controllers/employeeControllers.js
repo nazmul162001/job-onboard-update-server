@@ -61,7 +61,6 @@ const userEmployees = async (req, res) => {
   const query = { hrUserEmail: email };
   if (decodedEmail === email) {
     const hrAllEmployees = await employeesDataCollection.find(query).toArray();
-    console.log(hrAllEmployees);
     return res.send(hrAllEmployees);
   } else {
     return res.status(403).send({ message: "forbidden access" });

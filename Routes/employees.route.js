@@ -11,7 +11,7 @@ const {
 const VerifyToken = require("../VerifyToken/VerifyToken");
 router.post("/addEmployees", addEmployee);
 router.get("/getEmployees", VerifyToken, getEmployee);
-router.get("/hrEmployees", VerifyToken, userEmployees);
+router.get("/userEmployees", VerifyToken, userEmployees);
 router.get("/getEmployees/:detailsId", singleDetails);
 router.put("/editEployee/:id", editEployee);
 router.delete("/deleteEmployeDetails/:id", deleteEmployeData);

@@ -60,8 +60,8 @@ const userEmployees = async (req, res) => {
   const decodedEmail = req.decoded.email;
   const query = { hrUserEmail: email };
   if (decodedEmail === email) {
-    const hrJobs = await employeesDataCollection.find(query).toArray();
-    return res.send(hrJobs);
+    const hrAllEmployees = await employeesDataCollection.find(query).toArray();
+    return res.send(hrAllEmployees);
   } else {
     return res.status(403).send({ message: "forbidden access" });
   }

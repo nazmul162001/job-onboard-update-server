@@ -6,13 +6,13 @@ const {
   newApplicant,
   getApplicants,
   getOnlyApplicant,
-  appliedjob
+  appliedJob
 } = require("../Controllers/applicants.controller");
 
 router.get("/", getApplicants);
 router.get("/applied", VerifyToken, getOnlyApplicant);
 router.get("/show", VerifyToken, getApplicant);
-router.get("/appliedCandidate", VerifyToken, appliedjob);
+router.get("/appliedCandidate", VerifyToken, appliedJob);
 router.post("/", newApplicant);
 
 module.exports = router;

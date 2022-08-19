@@ -30,12 +30,12 @@ const getEmployee = async (req, res) => {
     .toArray();
   const male = await employeesDataCollection
     .find({
-      gender: "male",
+      gender: "Male",
     })
     .toArray();
   const female = await employeesDataCollection
     .find({
-      gender: "female",
+      gender: "Female",
     })
     .toArray();
   // const ageUnder20 = await employeesDataCollection.find({
@@ -61,6 +61,7 @@ const userEmployees = async (req, res) => {
   const query = { hrUserEmail: email };
   if (decodedEmail === email) {
     const hrAllEmployees = await employeesDataCollection.find(query).toArray();
+    console.log(hrAllEmployees);
     return res.send(hrAllEmployees);
   } else {
     return res.status(403).send({ message: "forbidden access" });

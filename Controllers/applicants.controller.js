@@ -12,7 +12,19 @@ const getApplicants = async (req, res) => {
   res.send(applicants);
 };
 
-const getApplicantsCount = async (req, res) => {
+const getOnlyApplicant = async (req, res) => {
+  const email = req.query.email;
+  const decodedEmail = req.decoded.email;
+  const query = { email: email };
+  if (decodedEmail === email) {
+    const applicant = await applicantsCollection.find(query).toArray();
+    return res.send(applicant);
+  } else {
+    return res.status(403).send({ message: "forbidden access" });
+  }
+};
+
+const getApplicant = async (req, res) => {
   const email = req.query.email;
   const decodedEmail = req.decoded.email;
   const query = { hrEmail: email };
@@ -24,8 +36,23 @@ const getApplicantsCount = async (req, res) => {
   }
 };
 
+const appliedjob = async (req, res) => {
+  const filter = {
+    "$and": [
+      { hrEmail: req.query.email },
+      { jobTitle: req.query.jobTitle }
+    ]
+  }
+  // console.log(filter);
+  const result = await applicantsCollection.find(filter).toArray()
+  return res.send(result)
+}
+
+
 module.exports = {
+  getApplicant,
   newApplicant,
   getApplicants,
-  getApplicantsCount,
+  getOnlyApplicant,
+  appliedjob
 };

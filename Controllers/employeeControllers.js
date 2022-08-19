@@ -30,12 +30,12 @@ const getEmployee = async (req, res) => {
     .toArray();
   const male = await employeesDataCollection
     .find({
-      gender: 'male',
+      gender: 'Male',
     })
     .toArray();
   const female = await employeesDataCollection
     .find({
-      gender: 'female',
+      gender: 'Female',
     })
     .toArray();
   // const ageUnder20 = await employeesDataCollection.find({

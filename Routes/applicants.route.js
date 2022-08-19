@@ -5,14 +5,14 @@ const {
   getApplicant,
   newApplicant,
   getApplicants,
-  getApplicantsCount,
-  getOnlyApplicant
+  getOnlyApplicant,
+  appliedjob
 } = require("../Controllers/applicants.controller");
 
 router.get("/", getApplicants);
 router.get("/applied", VerifyToken, getOnlyApplicant);
-router.get("/count", VerifyToken, getApplicantsCount);
 router.get("/show", VerifyToken, getApplicant);
+router.get("/appliedCandidate", VerifyToken, appliedjob);
 router.post("/", newApplicant);
 
 module.exports = router;

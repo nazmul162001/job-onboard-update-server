@@ -40,7 +40,7 @@ const appliedJob = async (req, res) => {
   const filter = {
     "$and": [
       { hrEmail: req.query.email },
-      { createdDate: req.query.createdDate }
+      { createdDate: req.query.createdDate}
     ]
   }
   // console.log(filter);

@@ -73,6 +73,16 @@ const singleJob = async (req, res) => {
   res.json(job);
 };
 
+//Single job
+const getAllJobs = async (req, res) => {
+  const result = await jobsCollection.find({}).toArray();
+  if (result) {
+    res.send({ success: true, result });
+  } else {
+    res.status(403).send({ success: false, message: "Forbidden request" });
+  }
+};
+
 //Add New Job
 const addNewJob = async (req, res) => {
   const data = req.body;
@@ -105,6 +115,7 @@ const updateJob = async (req, res) => {
 
 
 module.exports = {
+  getAllJobs,
   allJob,
   singleJob,
   addNewJob,

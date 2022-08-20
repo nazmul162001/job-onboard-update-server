@@ -36,11 +36,11 @@ const getApplicant = async (req, res) => {
   }
 };
 
-const appliedjob = async (req, res) => {
+const appliedJob = async (req, res) => {
   const filter = {
     "$and": [
       { hrEmail: req.query.email },
-      { jobTitle: req.query.jobTitle }
+      { createdDate: req.query.createdDate}
     ]
   }
   // console.log(filter);
@@ -54,5 +54,5 @@ module.exports = {
   newApplicant,
   getApplicants,
   getOnlyApplicant,
-  appliedjob
+  appliedJob
 };

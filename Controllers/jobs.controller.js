@@ -45,7 +45,7 @@ const allJob = async (req, res) => {
       ]
   }
 
-  const jobs = await jobsCollection.find(filter).skip(eval((page - 1) * show)).limit(eval(show)).toArray();
+  const jobs = await jobsCollection.find(filter).sort({createdDate:-1}).skip(eval((page - 1) * show)).limit(eval(show)).toArray();
 
   const count = await jobsCollection.countDocuments()
   return res.send({ jobs: jobs, total: count });
@@ -71,6 +71,16 @@ const singleJob = async (req, res) => {
   const { jobId } = req.params;
   const job = await jobsCollection.findOne({ _id: ObjectId(jobId) });
   res.json(job);
+};
+
+//Single job
+const getAllJobs = async (req, res) => {
+  const result = await jobsCollection.find({}).toArray();
+  if (result) {
+    res.send({ success: true, result });
+  } else {
+    res.status(403).send({ success: false, message: "Forbidden request" });
+  }
 };
 
 //Add New Job
@@ -105,6 +115,7 @@ const updateJob = async (req, res) => {
 
 
 module.exports = {
+  getAllJobs,
   allJob,
   singleJob,
   addNewJob,

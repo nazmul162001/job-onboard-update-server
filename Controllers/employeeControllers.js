@@ -1,6 +1,6 @@
-const client = require("../Connection/connection");
-const employeesDataCollection = client.db("jobOnboard").collection("employees");
-const { ObjectId } = require("mongodb");
+const client = require('../Connection/connection');
+const employeesDataCollection = client.db('jobOnboard').collection('employees');
+const { ObjectId } = require('mongodb');
 
 // Add new employe for company
 const addEmployee = async (req, res) => {
@@ -11,48 +11,8 @@ const addEmployee = async (req, res) => {
 
 // Get all employe details
 const getEmployee = async (req, res) => {
-  const frontEnd = await employeesDataCollection
-    .find({
-      designation: "Front-End Developer",
-    })
-    .toArray();
-  const backend = await employeesDataCollection
-    .find({
-      designation: "Back-End Developer",
-    })
-    .toArray();
-  const others = await employeesDataCollection
-    .find({
-      designation: {
-        $nin: ["Front-End Developer", "Back-End Developer"],
-      },
-    })
-    .toArray();
-  const male = await employeesDataCollection
-    .find({
-      gender: "Male",
-    })
-    .toArray();
-  const female = await employeesDataCollection
-    .find({
-      gender: "Female",
-    })
-    .toArray();
-  // const ageUnder20 = await employeesDataCollection.find({
-  //   age: {
-  //     $lt: 20,
-  //   }
-  // })
-  // .toArray()
-  const filtering = {
-    female,
-    male,
-    backend,
-    frontEnd,
-    others,
-  };
   const getAllEmployeDetails = await employeesDataCollection.find({}).toArray();
-  res.send({ getAllEmployeDetails, filtering });
+  res.send(getAllEmployeDetails);
 };
 
 const userEmployees = async (req, res) => {
@@ -63,7 +23,7 @@ const userEmployees = async (req, res) => {
     const hrAllEmployees = await employeesDataCollection.find(query).toArray();
     return res.send(hrAllEmployees);
   } else {
-    return res.status(403).send({ message: "forbidden access" });
+    return res.status(403).send({ message: 'forbidden access' });
   }
 };
 

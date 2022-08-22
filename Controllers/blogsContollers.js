@@ -14,7 +14,13 @@ const singleBlogDetails = async (req, res) => {
   res.send(result);
 };
 
+const addBlogs = async (req, res) => {
+  const newBlog = req.body;
+  const result = await blogsCollection.insertOne(newBlog);
+  res.send(result);
+};
 module.exports = {
   getBlogs,
   singleBlogDetails,
+  addBlogs,
 };

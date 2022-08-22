@@ -1,4 +1,5 @@
 const client = require("../Connection/connection");
+const { ObjectId } = require("mongodb");
 const applicantsCollection = client.db("jobOnboard").collection("applicants");
 
 const newApplicant = async (req, res) => {
@@ -48,11 +49,19 @@ const appliedJob = async (req, res) => {
   return res.send(result)
 }
 
+const singleCandidates = async (req, res) => {
+  const id = req.params.candidatesID;
+  const query = { _id: ObjectId(id) };
+  const result = await applicantsCollection.findOne(query);
+  res.send(result);
+};
+
 
 module.exports = {
   getApplicant,
   newApplicant,
   getApplicants,
   getOnlyApplicant,
-  appliedJob
+  appliedJob,
+  singleCandidates
 };

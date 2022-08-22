@@ -6,10 +6,12 @@ const {
   newApplicant,
   getApplicants,
   getOnlyApplicant,
-  appliedJob
+  appliedJob,
+  singleCandidates,
 } = require("../Controllers/applicants.controller");
 
 router.get("/", getApplicants);
+router.get("/all/:candidatesID", VerifyToken, singleCandidates);
 router.get("/applied", VerifyToken, getOnlyApplicant);
 router.get("/show", VerifyToken, getApplicant);
 router.get("/appliedCandidate", VerifyToken, appliedJob);

@@ -19,8 +19,27 @@ const addBlogs = async (req, res) => {
   const result = await blogsCollection.insertOne(newBlog);
   res.send(result);
 };
+
+const editBlog = async (req, res) => {
+  const id = req.params.id;
+  const editBlogDetails = req.body;
+  const filter = { _id: ObjectId(id) };
+  const option = { upsert: true };
+  const updateDoc = {
+    $set: editBlogDetails,
+  };
+  const results = await blogsCollection.updateOne(
+    filter,
+    updateDoc,
+    option
+  );
+  res.send(results);
+};
+
+
 module.exports = {
   getBlogs,
   singleBlogDetails,
   addBlogs,
+  editBlog
 };

@@ -15,8 +15,8 @@ const jobsRouter = require("./Routes/jobs.route.js");
 const applicantsRouter = require("./Routes/applicants.route");
 const blogsRouter = require("./Routes/blogs.route.js");
 const employeeRouter = require("./Routes/employees.route.js");
+const taskRouter = require("./Routes/candidateTask.route");
 const guestEmail = require("./Routes/guestEmail.route");
-const candidateInfo = require("./Routes/CandidateInfo.route");
 
 /* Set Middle wares  */
 app.use(cors());
@@ -32,7 +32,7 @@ app.use("/applicants", applicantsRouter);
 app.use("/guestEmail", guestEmail);
 app.use("/", employeeRouter);
 app.use("/", blogsRouter);
-app.use("/", candidateInfo);
+app.use("/", taskRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

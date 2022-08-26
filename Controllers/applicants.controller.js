@@ -1,4 +1,5 @@
 const client = require("../Connection/connection");
+const { ObjectId } = require("mongodb");
 const applicantsCollection = client.db("jobOnboard").collection("applicants");
 
 const newApplicant = async (req, res) => {
@@ -38,21 +39,40 @@ const getApplicant = async (req, res) => {
 
 const appliedJob = async (req, res) => {
   const filter = {
-    "$and": [
+    $and: [
       { hrEmail: req.query.email },
-      { createdDate: req.query.createdDate}
-    ]
-  }
+      { createdDate: req.query.createdDate },
+    ],
+  };
   // console.log(filter);
-  const result = await applicantsCollection.find(filter).toArray()
-  return res.send(result)
-}
+  const result = await applicantsCollection.find(filter).toArray();
+  return res.send(result);
+};
 
+const singleCandidates = async (req, res) => {
+  const id = req.params.candidatesID;
+  const query = { _id: ObjectId(id) };
+  const result = await applicantsCollection.findOne(query);
+  res.send(result);
+};
+
+const handleUpdateStatus = async (req, res) => {
+  const id = req.query.id;
+  const body = req.body;
+  const filter = { _id: ObjectId(id) };
+  const updatedDoc = {
+    $set: body,
+  };
+  const updateStatus = await applicantsCollection.updateOne(filter, updatedDoc);
+  res.send(updateStatus);
+};
 
 module.exports = {
   getApplicant,
   newApplicant,
   getApplicants,
   getOnlyApplicant,
-  appliedJob
+  appliedJob,
+  singleCandidates,
+  handleUpdateStatus,
 };

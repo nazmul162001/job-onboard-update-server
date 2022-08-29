@@ -16,7 +16,6 @@ const getSubmittedTask = async (req,res) => {
       { applicantId: req.query?.applicantId },
     ],
   };
-  console.log(filter);
   const result = await submittedTaskCollection.find(filter).toArray();
   return res.send(result);
 }

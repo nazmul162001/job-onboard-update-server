@@ -1,16 +1,16 @@
 const client = require("../Connection/connection");
-const candidateTaskCollection = client
+const submittedTaskCollection = client
   .db("jobOnboard")
-  .collection("candidateTask");
+  .collection("submittedTask");
 
 const submitTaskFromCandidate = async (req, res) => {
   const taskInformation = req.body;
-  const result = await candidateTaskCollection.insertOne(taskInformation);
+  const result = await submittedTaskCollection.insertOne(taskInformation);
   res.send(result);
 };
 
 const getAllCandidatesTask = async (req,res) => {
-  const allTask = await candidateTaskCollection.find({}).toArray()
+  const allTask = await submittedTaskCollection.find({}).toArray()
   res.send(allTask)
 }
 

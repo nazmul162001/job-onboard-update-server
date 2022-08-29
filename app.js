@@ -34,7 +34,7 @@ app.use("/guestEmail", guestEmail);
 app.use("/", employeeRouter);
 app.use("/", blogsRouter);
 app.use("/", hrTaskRouter);
-app.use("/candidatesTask", candidateTaskRouter);
+app.use("/", candidateTaskRouter);
 
 /* testing api  */
 app.get("/", (req, res) => {

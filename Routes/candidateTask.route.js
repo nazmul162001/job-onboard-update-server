@@ -7,5 +7,5 @@ const {
 
 const VerifyToken = require("../VerifyToken/VerifyToken");
 router.post("/submitCandidateTask", VerifyToken, submitTaskFromCandidate);
-router.get('/' , getAllCandidatesTask)
+router.get('/candidatesTask' , getAllCandidatesTask)
 module.exports=router

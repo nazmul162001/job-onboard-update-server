@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const {
   submitTaskFromCandidate,
-  getAllCandidatesTask
-} = require("../Controllers/candidateTask.controller");
+  getSubmittedTask
+} = require("../Controllers/submittedTask.controller");
 
 
 const VerifyToken = require("../VerifyToken/VerifyToken");
 router.post("/submitCandidateTask", VerifyToken, submitTaskFromCandidate);
-router.get('/candidatesTask' , getAllCandidatesTask)
+router.get('/submittedTask' , getSubmittedTask)
 module.exports=router

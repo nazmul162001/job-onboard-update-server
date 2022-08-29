@@ -9,12 +9,12 @@ const submitTaskFromCandidate = async (req, res) => {
   res.send(result);
 };
 
-const getAllCandidatesTask = async (req,res) => {
+const getSubmittedTask = async (req,res) => {
   const allTask = await submittedTaskCollection.find({}).toArray()
   res.send(allTask)
 }
 
 module.exports = {
   submitTaskFromCandidate,
-  getAllCandidatesTask
+  getSubmittedTask
 };

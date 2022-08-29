@@ -10,8 +10,15 @@ const submitTaskFromCandidate = async (req, res) => {
 };
 
 const getSubmittedTask = async (req,res) => {
-  const allTask = await submittedTaskCollection.find({}).toArray()
-  res.send(allTask)
+  const filter = {
+    $and: [
+      { hrEmail: req.query?.email },
+      { applicantId: req.query?.applicantId },
+    ],
+  };
+  console.log(filter);
+  const result = await submittedTaskCollection.find(filter).toArray();
+  return res.send(result);
 }
 
 module.exports = {

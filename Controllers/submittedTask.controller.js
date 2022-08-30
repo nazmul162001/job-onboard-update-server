@@ -14,7 +14,14 @@ const getSubmittedTask = async (req,res) => {
   return res.send(result);
 }
 
+const singleSubmission = async (req, res) => {
+  const query = { applicantId: req.params.applicantId };
+  const result = await submittedTaskCollection.findOne(query);
+  res.send(result);
+};
+
 module.exports = {
   submitTaskFromCandidate,
-  getSubmittedTask
+  getSubmittedTask,
+  singleSubmission
 };

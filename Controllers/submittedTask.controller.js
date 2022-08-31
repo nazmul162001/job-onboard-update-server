@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const client = require("../Connection/connection");
 const submittedTaskCollection = client
   .db("jobOnboard")
@@ -20,8 +21,16 @@ const singleSubmission = async (req, res) => {
   res.send(result);
 };
 
+const singleSubmittedTask = async (req, res) => {
+  const id = req.params.taskID;
+  const query = { _id: ObjectId(id) };
+  const result = await submittedTaskCollection.findOne(query);
+  res.send(result);
+};
+
 module.exports = {
   submitTaskFromCandidate,
   getSubmittedTask,
-  singleSubmission
+  singleSubmission,
+  singleSubmittedTask
 };

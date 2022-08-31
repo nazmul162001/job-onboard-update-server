@@ -67,6 +67,13 @@ const handleUpdateStatus = async (req, res) => {
   res.send(updateStatus);
 };
 
+const deleteApplicantsData = async (req, res) => {
+  const applicantID = req.params.id;
+  const query = { _id: ObjectId(applicantID) };
+  const deleteData = await applicantsCollection.deleteOne(query);
+  res.send(deleteData);
+};
+
 module.exports = {
   getApplicant,
   newApplicant,
@@ -75,4 +82,5 @@ module.exports = {
   appliedJob,
   singleCandidates,
   handleUpdateStatus,
+  deleteApplicantsData
 };

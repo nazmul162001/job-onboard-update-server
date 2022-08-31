@@ -9,6 +9,7 @@ const {
   appliedJob,
   singleCandidates,
   handleUpdateStatus,
+  deleteApplicantsData
 } = require("../Controllers/applicants.controller");
 
 router.get("/", getApplicants);
@@ -18,5 +19,6 @@ router.get("/show", VerifyToken, getApplicant);
 router.get("/appliedCandidate", VerifyToken, appliedJob);
 router.post("/", newApplicant);
 router.patch("/status", VerifyToken, handleUpdateStatus);
+router.delete("/all/:id", deleteApplicantsData);
 
 module.exports = router;

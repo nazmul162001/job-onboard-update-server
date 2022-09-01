@@ -1,11 +1,13 @@
 const router = require("express").Router();
 const {
   giveCandidateTask,
-  getHrTask,
+  getJobTask,
   allreadyGiven,
-} = require("../Controllers/candidateTask.controller");
+  singleTask,
+} = require("../Controllers/hrTask.controller");
 const VerifyToken = require("../VerifyToken/VerifyToken");
 router.post("/candidateTask", VerifyToken, giveCandidateTask);
+router.get("/singleTask/:taskId", VerifyToken, singleTask);
 router.get("/AllredyGiven", VerifyToken, allreadyGiven);
-router.get("/getHrTask", VerifyToken, getHrTask);
+router.get("/getJobTask",VerifyToken,  getJobTask);
 module.exports = router;

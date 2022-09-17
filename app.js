@@ -18,6 +18,7 @@ const employeeRouter = require("./Routes/employees.route.js");
 const hrTaskRouter = require("./Routes/hrTask.route");
 const submittedTaskRouter = require("./Routes/submittedTask.route");
 const guestEmail = require("./Routes/guestEmail.route");
+const paymentRoute = require("./Routes/payment.route");
 
 /* Set Middle wares  */
 app.use(cors());
@@ -35,6 +36,7 @@ app.use("/", employeeRouter);
 app.use("/", blogsRouter);
 app.use("/", hrTaskRouter);
 app.use("/", submittedTaskRouter);
+app.use("/", paymentRoute);
 
 /* testing api  */
 app.get('/', (req, res) => {

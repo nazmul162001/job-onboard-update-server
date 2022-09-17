@@ -7,6 +7,15 @@ const getPayment = async (req, res) => {
   res.send(allPayment);
 };
 
+const paymentInfo = async (req, res) => {
+  const id = req.params.paymentId;
+//   console.log(id);
+  const query = { _id: ObjectId(id) };
+  const result = await paymentCollection.findOne(query);
+  res.send(result);
+};
+
 module.exports = {
   getPayment,
+  paymentInfo,
 };

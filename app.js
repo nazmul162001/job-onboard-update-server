@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
@@ -18,6 +19,7 @@ const employeeRouter = require("./Routes/employees.route.js");
 const hrTaskRouter = require("./Routes/hrTask.route");
 const submittedTaskRouter = require("./Routes/submittedTask.route");
 const guestEmail = require("./Routes/guestEmail.route");
+const paymentRoute = require("./Routes/payment.route");
 
 /* Set Middle wares  */
 app.use(cors());
@@ -35,11 +37,12 @@ app.use("/", employeeRouter);
 app.use("/", blogsRouter);
 app.use("/", hrTaskRouter);
 app.use("/", submittedTaskRouter);
+app.use("/", paymentRoute);
 
 /* testing api  */
-app.get('/', (req, res) => {
-  res.send('Server is running')
-})
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
 
 /* not found routes */
 app.use((req, res, next) => {

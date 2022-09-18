@@ -4,10 +4,13 @@ const paymentCollection = client.db("jobOnboard").collection("payments");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+// all payment
 const getPayment = async (req, res) => {
   const allPayment = await paymentCollection.find({}).toArray();
   res.send(allPayment);
 };
+
+// single payment id
 
 const paymentInfo = async (req, res) => {
   const id = req.params.paymentId;
@@ -16,6 +19,8 @@ const paymentInfo = async (req, res) => {
   const result = await paymentCollection.findOne(query);
   res.send(result);
 };
+
+// post method
 
 const makePayment = async (req, res) => {
   const service = req.body;
@@ -32,6 +37,8 @@ const makePayment = async (req, res) => {
     res.send({ clientSecret: paymentIntent.client_secret });
   }
 };
+
+//
 
 module.exports = {
   getPayment,
